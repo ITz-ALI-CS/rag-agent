@@ -1,0 +1,42 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% include "admin/_nav.html" %}
+
+<h1 style="font-size:18px;margin-bottom:16px;">🔒 Security</h1>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin-bottom:16px;">
+  <div style="background:#0c1a2c;border:1px solid #ef4444;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#ef4444;font-size:13px;">🚩 Flagged Sessions</h3>
+    <div style="font-size:12px;color:#dff0ff;">
+      {% for s in flagged_sessions %}
+        <div style="padding:5px 0;border-bottom:1px solid #1a3050;">
+          <a href="/admin/core/chathistorydb/{{ s.id }}/change/" style="color:#00d4ff;">{{ s.session_title }}</a>
+          <span style="color:#6a9ec0;">— {{ s.user_email }}</span>
+        </div>
+      {% empty %}
+        <span style="color:#6a9ec0;">Nothing flagged. ✅</span>
+      {% endfor %}
+    </div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">🔓 Failed Logins (24h)</h3>
+    <div style="font-size:24px;font-weight:900;color:{{ failed_color }};font-family:'Orbitron',sans-serif;">{{ failed_24h }}</div>
+  </div>
+</div>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;max-width:900px;margin-bottom:16px;">
+  <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">🕓 Recent Failed Login Attempts</h3>
+  <div style="font-size:12px;color:#dff0ff;">
+    {% for f in recent_failed %}
+      <div style="padding:5px 0;border-bottom:1px solid #1a3050;">{{ f.email }} <span style="color:#6a9ec0;">— {{ f.ip }} — {{ f.timestamp }}</span></div>
+    {% empty %}
+      <span style="color:#6a9ec0;">None recorded.</span>
+    {% endfor %}
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;max-width:900px;">
+  <a href="/admin/core/adminlog/" style="padding:9px 18px;background:#0c1a2c;border:1px solid #1a3050;color:#00d4ff;border-radius:8px;font-weight:600;font-size:12px;text-decoration:none;">→ Full Audit Log</a>
+  <a href="/admin/core/failedlogindb/" style="padding:9px 18px;background:#0c1a2c;border:1px solid #1a3050;color:#00d4ff;border-radius:8px;font-weight:600;font-size:12px;text-decoration:none;">→ Full Failed Login List</a>
+</div>
+{% endblock %}

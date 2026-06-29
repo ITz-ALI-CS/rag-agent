@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% include "admin/_nav.html" %}
+
+<h1 style="font-size:18px;margin-bottom:16px;">📊 Analytics</h1>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:18px;margin-bottom:18px;max-width:900px;">
+  <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">⏰ Busiest Hours (sessions started)</h3>
+  <canvas id="hourChart" height="60"></canvas>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;">
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">🏆 Leaderboard (by messages sent)</h3>
+    <div style="font-size:12px;color:#dff0ff;">
+      {% for l in leaderboard %}
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a3050;">
+          <span>{{ forloop.counter }}. {{ l.username }}</span>
+          <strong style="color:#00d4ff;">{{ l.count }}</strong>
+        </div>
+      {% empty %}
+        <span style="color:#6a9ec0;">No data yet.</span>
+      {% endfor %}
+    </div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">📈 Overview</h3>
+    <div style="font-size:12px;color:#dff0ff;line-height:2;">
+      Avg messages/session: <strong style="color:#00d4ff;">{{ avg_msgs }}</strong>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+new Chart(document.getElementById('hourChart'), {
+  type: 'bar',
+  data: {
+    labels: {{ hourly_labels|safe }},
+    datasets: [{label:'Sessions', data:{{ hourly_activity|safe }}, backgroundColor:'rgba(0,212,255,.4)', borderColor:'#00d4ff', borderWidth:1}]
+  },
+  options: {
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{color:'#6a9ec0', font:{size:9}}, grid:{display:false}},
+      y:{ticks:{color:'#6a9ec0', font:{size:9}}, grid:{color:'rgba(26,48,80,.5)'}}
+    }
+  }
+});
+</script>
+{% endblock %}

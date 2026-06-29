@@ -1,0 +1,19 @@
+<style>
+  @keyframes navPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 6px rgba(0, 212, 255, 0.3);
+    }
+    50% {
+      box-shadow:
+        0 0 16px rgba(0, 212, 255, 0.6),
+        0 0 6px rgba(245, 166, 35, 0.4);
+    }
+  }
+</style>
+<div style="display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap">
+  <a href="/admin/" style="{{ nav_dash }}">🏠 Dashboard</a>
+  <a href="/admin/analytics/" style="{{ nav_analytics }}">📊 Analytics</a>
+  <a href="/admin/system/" style="{{ nav_system }}">🖥️ System</a>
+  <a href="/admin/security/" style="{{ nav_security }}">🔒 Security</a>
+</div>

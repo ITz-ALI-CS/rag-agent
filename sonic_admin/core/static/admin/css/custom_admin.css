@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #0c1a2c !important;
+  --secondary: #07101c !important;
+  --accent: #f5a623 !important;
+  --primary-fg: #00d4ff !important;
+  --body-fg: #dff0ff !important;
+  --body-bg: #04080f !important;
+  --body-quiet-color: #6a9ec0 !important;
+  --body-loud-color: #dff0ff !important;
+  --header-color: #f5a623 !important;
+  --header-branding-color: #f5a623 !important;
+  --header-bg: #07101c !important;
+  --header-link-color: #00d4ff !important;
+  --breadcrumbs-fg: #6a9ec0 !important;
+  --breadcrumbs-link-fg: #00d4ff !important;
+  --breadcrumbs-bg: #0c1a2c !important;
+  --link-fg: #00d4ff !important;
+  --link-hover-color: #55eeff !important;
+  --link-selected-fg: #00d4ff !important;
+  --hairline-color: #1a3050 !important;
+  --border-color: #1a3050 !important;
+  --darkened-bg: #0c1a2c !important;
+  --selected-bg: rgba(0,212,255,.08) !important;
+  --selected-row: rgba(245,166,35,.1) !important;
+  --button-fg: #04080f !important;
+  --button-bg: #00d4ff !important;
+  --button-hover-bg: #55eeff !important;
+  --default-button-bg: #0099cc !important;
+  --default-button-hover-bg: #00b8e6 !important;
+}
+
+* { font-family: 'Inter', sans-serif !important; }
+
+body {
+  background: radial-gradient(ellipse at top, #0a1420 0%, #04080f 60%) !important;
+}
+
+#header h1, #branding h1, #site-name a {
+  font-family: 'Orbitron', sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 2px !important;
+  text-shadow: 0 0 12px rgba(245,166,35,.5), 0 0 28px rgba(0,212,255,.2);
+}
+
+h1, h2 {
+  font-family: 'Orbitron', sans-serif !important;
+  letter-spacing: 1px;
+}
+
+/* Module / app-list headers */
+.module caption, .module caption a.section {
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  position: relative;
+}
+.module {
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  border: 1px solid #1a3050 !important;
+  transition: box-shadow .25s, transform .25s;
+}
+.module:hover {
+  box-shadow: 0 6px 30px rgba(0,212,255,.12);
+  transform: translateY(-2px);
+}
+
+/* Table rows */
+#content-main table tbody tr {
+  transition: background .2s;
+}
+#content-main table tbody tr:hover {
+  background: rgba(0,212,255,.08) !important;
+}
+#content-main table td, #content-main table th {
+  border-color: #1a3050 !important;
+}
+
+/* Buttons */
+.button, input[type=submit], input[type=button], .submit-row input {
+  background: linear-gradient(135deg, #00d4ff, #0099cc) !important;
+  color: #04080f !important;
+  border: none !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0,212,255,.25);
+  transition: transform .2s, box-shadow .2s;
+}
+.button:hover, input[type=submit]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0,212,255,.4);
+}
+.deletelink {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  border-radius: 8px !important;
+}
+
+/* Form fields */
+input[type=text], input[type=email], input[type=password], textarea, select {
+  background: #0c1a2c !important;
+  border: 1px solid #1a3050 !important;
+  color: #dff0ff !important;
+  border-radius: 8px !important;
+  transition: border-color .2s, box-shadow .2s;
+}
+input[type=text]:focus, textarea:focus, select:focus {
+  border-color: #00d4ff !important;
+  box-shadow: 0 0 0 3px rgba(0,212,255,.12) !important;
+}
+
+/* Sidebar nav */
+#nav-sidebar {
+  background: #07101c !important;
+  border-right: 1px solid #1a3050 !important;
+}
+#nav-sidebar a {
+  transition: color .2s, padding-left .2s;
+}
+#nav-sidebar a:hover {
+  color: #00d4ff !important;
+  padding-left: 4px;
+}
+
+/* Filter sidebar */
+#changelist-filter {
+  border-radius: 10px !important;
+  border: 1px solid #1a3050 !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+}
+#changelist-filter li.selected a {
+  color: #f5a623 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #04080f; }
+::-webkit-scrollbar-thumb { background: #1a3050; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
+
+/* Sonic dashboard cards */
+.sonic-card {
+  background: linear-gradient(145deg, #0c1a2c, #07101c) !important;
+  border: 1px solid #1a3050 !important;
+  border-radius: 14px !important;
+  padding: 20px 24px !important;
+  min-width: 170px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.sonic-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,212,255,.4) !important;
+  box-shadow: 0 10px 30px rgba(0,212,255,.15);
+}
+.sonic-card-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+  display: block;
+}
+.sonic-card-num {
+  font-family: 'Orbitron', sans-serif !important;
+  font-size: 30px;
+  font-weight: 900;
+}
+.sonic-card-label {
+  font-size: 11px;
+  color: #6a9ec0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.sonic-chart-wrap {
+  background: linear-gradient(145deg, #0c1a2c, #07101c) !important;
+  border: 1px solid #1a3050 !important;
+  border-radius: 14px !important;
+  padding: 24px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+div.breadcrumbs a:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, rgba(0,212,255,.25), rgba(245,166,35,.15));
+  border: 1px solid #00d4ff;
+  border-radius: 8px;
+  font-weight: 700;
+}
+div.breadcrumbs a:first-child::before {
+  content: "🏠";
+}

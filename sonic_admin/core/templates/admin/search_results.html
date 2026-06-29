@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% include "admin/_nav.html" %}
+
+<h1 style="font-size:18px;margin-bottom:16px;">🔍 Search results for "{{ query }}"</h1>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;max-width:900px;margin-bottom:16px;">
+  <h3 style="margin:0 0 10px;color:#00d4ff;font-size:13px;">Users</h3>
+  {% for u in user_results %}
+    <div style="padding:5px 0;border-bottom:1px solid #1a3050;font-size:12px;">
+      <a href="/admin/core/userdb/{{ u.id }}/change/" style="color:#00d4ff;">{{ u.username }} ({{ u.email }})</a>
+    </div>
+  {% empty %}
+    <span style="color:#6a9ec0;font-size:12px;">No matching users.</span>
+  {% endfor %}
+</div>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;max-width:900px;">
+  <h3 style="margin:0 0 10px;color:#00d4ff;font-size:13px;">Chat Sessions</h3>
+  {% for s in session_results %}
+    <div style="padding:5px 0;border-bottom:1px solid #1a3050;font-size:12px;">
+      <a href="/admin/core/chathistorydb/{{ s.id }}/change/" style="color:#00d4ff;">{{ s.session_title }}</a>
+      <span style="color:#6a9ec0;">— {{ s.user_email }}</span>
+    </div>
+  {% empty %}
+    <span style="color:#6a9ec0;font-size:12px;">No matching sessions.</span>
+  {% endfor %}
+</div>
+{% endblock %}

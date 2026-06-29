@@ -1,0 +1,79 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% include "admin/_nav.html" %}
+
+<form method="get" action="/admin/global-search/" style="margin-bottom:18px;max-width:900px;">
+  <input type="text" name="q" placeholder="Search users, sessions, messages..." style="width:100%;padding:10px 14px;background:#0c1a2c;border:1px solid #1a3050;border-radius:8px;color:#dff0ff;font-size:13px;">
+</form>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;max-width:900px;">
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-left:3px solid #00d4ff;border-radius:8px;padding:12px 16px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;">⚡</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#00d4ff;line-height:1;">{{ total_users }}</div>
+    </div>
+    <div style="font-size:10px;color:#6a9ec0;text-transform:uppercase;letter-spacing:1px;margin-top:6px;">Total Users</div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-left:3px solid #f5a623;border-radius:8px;padding:12px 16px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,166,35,.12);display:flex;align-items:center;justify-content:center;font-size:14px;">💬</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#f5a623;line-height:1;">{{ total_sessions }}</div>
+    </div>
+    <div style="font-size:10px;color:#6a9ec0;text-transform:uppercase;letter-spacing:1px;margin-top:6px;">Chat Sessions</div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-left:3px solid #00d4ff;border-radius:8px;padding:12px 16px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;">📨</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#00d4ff;line-height:1;">{{ total_messages }}</div>
+    </div>
+    <div style="font-size:10px;color:#6a9ec0;text-transform:uppercase;letter-spacing:1px;margin-top:6px;">Total Messages</div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-left:3px solid {{ backend_color }};border-radius:8px;padding:12px 16px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:{{ backend_bg }};display:flex;align-items:center;justify-content:center;font-size:12px;">{{ backend_icon }}</div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;line-height:1;color:{{ backend_color }};">{{ backend_text }}</div>
+    </div>
+    <div style="font-size:10px;color:#6a9ec0;text-transform:uppercase;letter-spacing:1px;margin-top:6px;">FastAPI Backend</div>
+  </div>
+</div>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:18px;margin-bottom:18px;max-width:900px;">
+  <canvas id="sonicChart" height="65"></canvas>
+</div>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;max-width:900px;">
+  <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">⚡ Recent Admin Actions</h3>
+  <div style="font-size:12px;color:#dff0ff;">
+    {% for log in recent_logs %}
+      <div style="padding:6px 0;border-bottom:1px solid #1a3050;">
+        <strong style="color:#00d4ff;">{{ log.admin_user }}</strong> {{ log.get_action_display }}
+        <span style="color:#6a9ec0;">— {{ log.target }}</span>
+        <span style="color:#6a9ec0;font-size:10px;float:right;">{{ log.timestamp }}</span>
+      </div>
+    {% empty %}
+      <span style="color:#6a9ec0;">No actions yet.</span>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+new Chart(document.getElementById('sonicChart'), {
+  type: 'line',
+  data: {
+    labels: {{ chart_days|safe }},
+    datasets: [
+      {label:'Signups', data:{{ chart_signups|safe }}, borderColor:'#f5a623', backgroundColor:'rgba(245,166,35,.1)', tension:.35, fill:true, pointRadius:3, pointBackgroundColor:'#f5a623'},
+      {label:'Messages', data:{{ chart_messages|safe }}, borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,.1)', tension:.35, fill:true, pointRadius:3, pointBackgroundColor:'#00d4ff'}
+    ]
+  },
+  options: {
+    plugins:{legend:{labels:{color:'#dff0ff', boxWidth:14, font:{size:11}}}},
+    scales:{
+      x:{ticks:{color:'#6a9ec0', font:{size:10}}, grid:{color:'rgba(26,48,80,.5)'}},
+      y:{ticks:{color:'#6a9ec0', font:{size:10}}, grid:{color:'rgba(26,48,80,.5)'}}
+    }
+  }
+});
+</script>
+{% endblock %}

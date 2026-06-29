@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+{% include "admin/_nav.html" %}
+
+<h1 style="font-size:18px;margin-bottom:16px;">🖥️ System</h1>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin-bottom:16px;">
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">🔑 API Keys</h3>
+    <div style="font-size:12px;color:#dff0ff;line-height:1.9;">
+      Groq: <strong style="color:{{ groq_color }};">{{ groq_text }}</strong><br>
+      Tavily: <strong style="color:{{ tavily_color }};">{{ tavily_text }}</strong><br>
+      JWT Secret: <strong style="color:{{ secret_color }};">{{ secret_text }}</strong>
+    </div>
+  </div>
+  <div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;">
+    <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">📦 Vectorstore</h3>
+    <div style="font-size:12px;color:#dff0ff;line-height:1.9;">
+      Status: <strong style="color:{{ vs_color }};">{{ vs_text }}</strong><br>
+      Server time: <strong style="color:#00d4ff;">{{ server_time }}</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background:#0c1a2c;border:1px solid #1a3050;border-radius:10px;padding:16px;max-width:900px;margin-bottom:16px;">
+  <h3 style="margin:0 0 10px;color:#f5a623;font-size:13px;">📄 Uploaded Documents</h3>
+  <div style="font-size:12px;color:#dff0ff;">
+    {% for f in doc_files %}
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #1a3050;">
+        <span>{{ f.name }} <span style="color:#6a9ec0;">({{ f.size_kb }} KB)</span></span>
+        <a href="/admin/delete-doc/?file={{ f.name }}" onclick="return confirm('Delete {{ f.name }}?')" style="color:#ef4444;font-size:11px;text-decoration:none;">✕ Delete</a>
+      </div>
+    {% empty %}
+      <span style="color:#6a9ec0;">No documents uploaded.</span>
+    {% endfor %}
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;max-width:900px;">
+  <a href="/admin/backup-db/" style="padding:9px 18px;background:linear-gradient(135deg,#00d4ff,#0099cc);color:#04080f;border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;">⬇️ Download DB Backup</a>
+  <a href="http://127.0.0.1:8000/" target="_blank" style="padding:9px 18px;background:#0c1a2c;border:1px solid #1a3050;color:#00d4ff;border-radius:8px;font-weight:600;font-size:12px;text-decoration:none;">→ FastAPI root</a>
+  <a href="http://127.0.0.1:8000/docs" target="_blank" style="padding:9px 18px;background:#0c1a2c;border:1px solid #1a3050;color:#00d4ff;border-radius:8px;font-weight:600;font-size:12px;text-decoration:none;">→ Swagger docs</a>
+  <a href="/admin/auth/group/" style="padding:9px 18px;background:#0c1a2c;border:1px solid #1a3050;color:#00d4ff;border-radius:8px;font-weight:600;font-size:12px;text-decoration:none;">→ Manage roles/groups</a>
+</div>
+{% endblock %}
